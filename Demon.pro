@@ -13,8 +13,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        displaywindow.cpp
+        displaywindow.cpp \
+    jsonparser.cpp
 
-HEADERS  += displaywindow.hpp
+HEADERS  += displaywindow.hpp \
+    jsonparser.hpp
 
 FORMS    += displaywindow.ui
