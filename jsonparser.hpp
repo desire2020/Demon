@@ -23,7 +23,8 @@ enum TokenName
 {
     left_italic_bracket, literal_str, literal_int, left_square_bracket, right_italic_bracket, right_square_bracket, projection
 };
-
+ostream & operator<<(ostream & fout, const Closure & _token);
+ostream & operator<<(ostream & fout, const Token & _token);
 class Closure
 {
     shared_ptr<long long> int_v;
@@ -52,8 +53,8 @@ public:
     explicit Closure(const long long rhs) : int_v(new long long(rhs)) {}
     bool valid() const;
     long long & get_int() const;
-    Closure & operator[](const string & key);
-    Closure & operator[](size_t idx);
+    Closure & operator[](const string & key) const;
+    Closure & operator[](size_t idx) const;
     void push_back(const Closure & ins);
     string & get_str() const;
     bool operator<(const Closure & rhs);

@@ -178,12 +178,12 @@ long long &Closure::get_int() const
     return (*int_v);
 }
 
-Closure & Closure::operator[](const std::string & key)
+Closure & Closure::operator[](const std::string & key) const
 {
     return (*class_v)[key];
 }
 
-Closure & Closure::operator[](size_t idx)
+Closure & Closure::operator[](size_t idx) const
 {
     return (*list_v)[idx];
 }
@@ -203,7 +203,25 @@ bool Closure::operator<(const Closure & rhs)
     return (*str_v) < (*rhs.str_v);
 }
 
-
+ostream & operator<<(ostream & fout, const Closure & _token)
+{
+    if (_token.str_v != NULL)
+        fout << *(_token.str_v);
+    else if (_token.int_v != NULL)
+        fout << *(_token.int_v);
+    else if (_token.list_v != NULL)
+    {
+        deque<Closure> & tg(*_token.list_v);
+        for (auto i = tg.begin(); i != tg.end(); ++i)
+            fout << *i << "\n";
+    } else if (_token.class_v != NULL)
+    {
+        map<string, Closure> & tg(*_token.class_v);
+        for (auto i = tg.begin(); i != tg.end(); ++i)
+            fout << "{" << i -> first << "}->{" << i -> second << "}\n";
+    }
+    return fout;
+}
 
 Closure JSonParser::get_value(int & pos)
 {
@@ -230,6 +248,7 @@ Closure JSonParser::get_value(int & pos)
                 ret_v.push_back(value);
             }
             ++pos;
+            return ret_v;
         } else {
             return context[pos++].attribute_value;
         }
