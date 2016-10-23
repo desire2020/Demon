@@ -55,6 +55,7 @@ public:
     long long & get_int() const;
     Closure & operator[](const string & key) const;
     Closure & operator[](size_t idx) const;
+    deque<Closure> & get_list() const;
     void push_back(const Closure & ins);
     string & get_str() const;
     bool operator<(const Closure & rhs);

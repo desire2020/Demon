@@ -188,12 +188,17 @@ Closure & Closure::operator[](size_t idx) const
     return (*list_v)[idx];
 }
 
+deque<Closure> & Closure::get_list() const
+{
+    return (*list_v);
+}
+
 void Closure::push_back(const Closure & ins)
 {
     list_v -> push_back(ins);
 }
 
-std::string &Closure::get_str() const
+std::string & Closure::get_str() const
 {
     return (*str_v);
 }

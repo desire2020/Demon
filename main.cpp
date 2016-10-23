@@ -6,21 +6,24 @@ using std::ofstream;
 using std::ifstream;
 using std::endl;
 using std::fstream;
+Closure targetjson;
 
 int main(int argc, char * argv[])
 {
     QApplication a(argc, argv);
-    DisplayWindow w;
-    w.show();
     Lexemes test;
+    DisplayWindow w;
     ifstream fin("W:\\acm\\TA Work\\Prog2016\\AI\\judger\\ACM-2015-AI-Server\\result.json");
     ofstream fout("W:\\acm\\TA Work\\Prog2016\\AI\\judger\\ACM-2015-AI-Server\\opt.txt");
     JSonScanner(test, fin);
     JSonParser json_parser(test);
     int pos = 0;
-    auto json = json_parser.get_value(pos);
-    fout << json["user"][0] << endl;
-    fout << json["user"][1] << endl;
+    targetjson = json_parser.get_value(pos);
+    fout << targetjson;
+    w.show();
+    if (!fin.is_open())
+        w.show_mess("Open JSon file failed.");
+
     fout.close();
     fin.close();
     return a.exec();
