@@ -20,3 +20,9 @@ HEADERS  += displaywindow.hpp \
     jsonparser.hpp
 
 FORMS    += displaywindow.ui
+
+DISTFILES += \
+    layout.qss
+
+RESOURCES += \
+    images.qrc
