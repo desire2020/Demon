@@ -11,9 +11,12 @@ Closure targetjson;
 int main(int argc, char * argv[])
 {
     QApplication a(argc, argv);
+    thisui = &a;
     Lexemes test;
-    ifstream fin("/Users/blacko/Downloads/result.json");
-    ofstream fout("/Users/blacko/Downloads/opt.txt");
+    ifstream fin("result.json");
+    ofstream fout("opt.txt");
+    if (!fin.is_open())
+        throw -1;
     JSonScanner(test, fin);
     JSonParser json_parser(test);
     int pos = 0;

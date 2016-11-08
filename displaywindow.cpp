@@ -6,6 +6,7 @@
 #include <iomanip>
 using namespace std;
 
+QApplication * thisui;
 int can_eat(int a, int b) {
     if(b == 0) return 1;
     a = abs(a), b = abs(b);
@@ -27,8 +28,8 @@ void DisplayWindow::set_control() {
         pause = true;
         continueB -> setEnabled(false);
     } else {
-        //continueB -> setEnabled(true);
-        continueB -> setEnabled(false);
+        continueB -> setEnabled(true);
+        //continueB -> setEnabled(false);
     }
     if(pause) {
         continueB -> setText("Start");
@@ -61,7 +62,8 @@ void DisplayWindow::continue_click() {
         pause = true;
     }
     while(pause == false) {
-        //QThread :: msleep(time_interval);
+        QThread :: msleep(time_interval);
+        thisui -> processEvents();
         ++step_now;
         show_board();
     }
@@ -109,7 +111,7 @@ void DisplayWindow::show_board() {
     text -> setText(s);
     for (int i = 0; i < ROW; ++i) {
         for (int j = 0; j < COL; ++j) {
-            chess[i][j] -> setGeometry(QRect(j * 45, i * 33 + 66, 45, 33));
+            chess[i][j] -> setGeometry(QRect(37 + j * 45, i * 33 + 66, 45, 33));
             char s[100];
             if (boards[step_now][i][j] > 0) {
                 sprintf(s, "background-image: url(:/image/blueChess.png);"
@@ -136,7 +138,7 @@ DisplayWindow::DisplayWindow(QWidget *parent) :
     //ui->label0->setText(targetjson["user"][0].get_str().c_str());
     //ui->label1->setText(targetjson["user"][1].get_str().c_str());
     text = new QLineEdit(this);
-    text -> setGeometry(QRect(0, 33, 225, 33));
+    text -> setGeometry(QRect(0, 33, 300, 33));
     text -> setEnabled(false    );
     lastB = new QPushButton(this);
     lastB -> setGeometry(QRect(0, 0, 45, 33));
@@ -172,7 +174,7 @@ DisplayWindow::DisplayWindow(QWidget *parent) :
             boards[0][i][j] = curBoard[i][j];
         }
     }
-    show_board();
+    //show_board();
     step_total = targetjson["step"].get_list().size();
     for (int i = 1; i <= step_total; ++i) {
         //if (!('err' in Demo.data.step[i]))

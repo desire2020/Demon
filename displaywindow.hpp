@@ -7,10 +7,12 @@
 #include <QLineEdit>
 #include <string>
 #include "jsonparser.hpp"
+#include <QApplication>
 using std::string;
 
 extern Closure targetjson;
 
+extern QApplication * thisui;
 namespace Ui {
     class DisplayWindow;
 }
